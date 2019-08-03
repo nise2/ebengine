@@ -5,9 +5,9 @@ import org.scalatest.BeforeAndAfterAll
 
 class EbengineTest() extends UnitTestContext with BeforeAndAfterAll {
 
-  lazy val inputDF = getInputDF()
+  lazy val inputDF  : DataFrame = getInputDF()
 
-  def getInputDF(): DataFrame = {
+  def getInputDF()  : DataFrame = {
     ss.read
       .format(EbengineConf.INPUT_FORMAT)
       .load(EbengineConf.INPUT_FILE)
