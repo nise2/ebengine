@@ -5,9 +5,9 @@ import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.scalatest.{BeforeAndAfterAll, FunSpec, PrivateMethodTester}
 
 trait UnitTestContext extends FunSpec with BeforeAndAfterAll with PrivateMethodTester {
-  var ss: SparkSession = _
-  var sc: SparkContext = _
-  var sqlContext: SQLContext = _
+  var ss              : SparkSession  = _
+  var sc              : SparkContext  = _
+  var sqlContext      : SQLContext    = _
 
   override def beforeAll: Unit = {
     val appName = EbengineConf.SPARK_APP
@@ -20,11 +20,13 @@ trait UnitTestContext extends FunSpec with BeforeAndAfterAll with PrivateMethodT
     ss = SparkSession.builder().config(conf).getOrCreate()
 
     sc = ss.sparkContext
+    sc.setLogLevel(EbengineConf.SPARK_LOG_LEVEL)
+
     sqlContext = ss.sqlContext
 
-    println("App name : " + sc.appName)
-    println("Master : " + sc.master)
-    println("Deploy mode : " + sc.deployMode)
+    println(EbengineConf.LOG_APP_NAME     + " : " + sc.appName)
+    println(EbengineConf.LOG_MASTER       + " : " + sc.master)
+    println(EbengineConf.LOG_DEPLOY_MODE  + " : " + sc.deployMode)
 
     super.beforeAll
   }
