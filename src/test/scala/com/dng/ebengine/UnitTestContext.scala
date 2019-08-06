@@ -11,7 +11,7 @@ trait UnitTestContext extends FunSpec with BeforeAndAfterAll with PrivateMethodT
 
   override def beforeAll: Unit = {
     val appName = EbengineConf.SPARK_APP
-    val master = EbengineConf.SPARK_MASTER
+    val master  = EbengineConf.SPARK_MASTER
 
     val conf: SparkConf = new SparkConf()
       .setMaster(master)

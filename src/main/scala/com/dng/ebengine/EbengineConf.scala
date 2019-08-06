@@ -18,27 +18,36 @@ object EbengineConf {
   val COL_RATING                    : String  = "rating"
   val COL_TIMESTAMP                 : String  = "timestamp"
   val COL_USER_ID_AS_INTEGER        : String  = "userIdAsInteger"
+  val COL_ITEM_ID_AS_INTEGER        : String  = "itemIdAsInteger"
 
   // Input
+  val RESOURCE_DIR                  : String  = "src/main/resources/input/"
   val INPUT_FORMAT                  : String  = "csv"
-
-  // -- Tests
-  val INPUT_DIR                     : String  = "src/main/resources/input/"
+  // Input: Files
   val INPUT_TEST_FILE_100           : String  = "xag_100.csv"
-  val INPUT_TEST_FILE_100_PATH      : String  = INPUT_DIR + INPUT_TEST_FILE_100
-  
-  // Output
+
+  // Output: Conf
+  val OUTPUT_DIRECTORY              : String  = "src/test/resources/output/"
   val OUTPUT_FILE_FORMAT            : String  = "com.databricks.spark.csv"
   val OUTPUT_DELIMITER_TOKEN        : String  = ","
-  val OUTPUT_DIRECTORY              : String  = "src/test/resources/output/"
 
-  // - LookupUser
-  val OUTPUT_LOOKUP_USER_FILE       : String  = "lookup_users.csv"
+  // Output: Files
+  val OUTPUT_LOOKUP_USER_FILE       : String  = "lookup_user.csv"
+  val OUTPUT_LOOKUP_ITEM_FILE       : String  = "lookup_product.csv"
+
+  // Output: Expected files
+  val EXPEC_LOOKUP_USER_100_FILE    : String  = "expected_lookup_user_100.csv"
+  val EXPEC_LOOKUP_ITEM_100_FILE    : String  = "expected_lookup_product_100.csv"
+
+
+  // Macro concatenation
+  val INPUT_TEST_FILE_100_PATH      : String  = RESOURCE_DIR + INPUT_TEST_FILE_100
+
+  val EXPEC_LOOKUP_USER_100_PATH    : String  = RESOURCE_DIR + EXPEC_LOOKUP_USER_100_FILE
+  val EXPEC_LOOKUP_ITEM_100_PATH    : String  = RESOURCE_DIR + EXPEC_LOOKUP_ITEM_100_FILE
+
   val OUTPUT_LOOKUP_USER_FILE_PATH  : String  = OUTPUT_DIRECTORY + OUTPUT_LOOKUP_USER_FILE
-
-  val EXPECTED_LOOKUP_USERS_100_FILE: String  = "expected_lookup_users_100.csv"
-  val EXPECTED_LOOKUP_USERS_100_PATH: String  = INPUT_DIR + EXPECTED_LOOKUP_USERS_100_FILE
-  val EXPECTED_LOOKUPUSER_ROWS_100L : Long    = 98
+  val OUTPUT_LOOKUP_ITEM_FILE_PATH  : String  = OUTPUT_DIRECTORY + OUTPUT_LOOKUP_ITEM_FILE
 
   // - AggRatings
   val EXPECTED_MAX_TIMESTAMP        : Long    = 1476686557818L
