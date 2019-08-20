@@ -19,4 +19,14 @@ object Util {
       .format(EbengineConf.INPUT_FORMAT)
       .load(inputPath)
   }
+
+  def getInputDF(ss: SparkSession, filePath: String)  : DataFrame   = {
+    ss.read
+      .format(EbengineConf.INPUT_FORMAT)
+      .load(filePath)
+      .toDF(EbengineConf.COL_USER_ID,
+        EbengineConf.COL_ITEM_ID,
+        EbengineConf.COL_RATING,
+        EbengineConf.COL_TIMESTAMP)
+  }
 }

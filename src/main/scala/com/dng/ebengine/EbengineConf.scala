@@ -12,6 +12,10 @@ object EbengineConf {
   val LOG_MASTER                    : String  = "Master"
   val LOG_DEPLOY_MODE               : String  = "Deploy mode"
 
+  // Math
+  val MS_TO_DAY                     : Long    = 86400000L
+  val PENALTY_FACTOR                : Float   = 0f
+
   // Column names
   val COL_USER_ID                   : String  = "userId"
   val COL_ITEM_ID                   : String  = "itemId"
