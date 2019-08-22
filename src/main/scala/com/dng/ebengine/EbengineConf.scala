@@ -1,10 +1,10 @@
 package com.dng.ebengine
 
-object EbengineConf {
+case object EbengineConf {
 
   // Spark
   val SPARK_APP                     : String  = "Ebengine"
-  val SPARK_MASTER                  : String  = "local[*]"
+  val SPARK_MASTER                  : String  = "local[3]"
   val SPARK_LOG_LEVEL               : String  = "ERROR"
 
   // Log
@@ -28,7 +28,7 @@ object EbengineConf {
   val RESOURCE_DIR                  : String  = "src/main/resources/input/"
   val INPUT_FORMAT                  : String  = "csv"
   // Input: Files
-  val INPUT_TEST_FILE_100           : String  = "xag_100.csv"
+  val INPUT_TEST_FILE_100           : String  = "xag_101.csv"
 
   // Output: Conf
   val OUTPUT_DIRECTORY              : String  = "src/test/resources/output/"
@@ -54,5 +54,6 @@ object EbengineConf {
   val OUTPUT_LOOKUP_ITEM_FILE_PATH  : String  = OUTPUT_DIRECTORY + OUTPUT_LOOKUP_ITEM_FILE
 
   // - AggRatings
-  val EXPECTED_MAX_TIMESTAMP        : Long    = 1476686557818L
+  val EXPECTED_MAX_TIMESTAMP_FULL   : Long    = 1477353599713L // mardi 25 octobre 2016 01:59:59.713 GMT+02:00 DST
+  val EXPECTED_MAX_TIMESTAMP        : Long    = 1476686557818L // lundi 17 octobre 2016 08:42:37.818 GMT+02:00 DST
 }

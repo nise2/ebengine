@@ -15,7 +15,7 @@ object Main {
       .setMaster(master)
       .setAppName(appName)
 
-    val ss = SparkSession.builder().config(conf).getOrCreate()
+    implicit val ss = SparkSession.builder().config(conf).getOrCreate()
 
     val sc = ss.sparkContext
     sc.setLogLevel(EbengineConf.SPARK_LOG_LEVEL)
@@ -28,7 +28,7 @@ object Main {
 
     /* Execute main tasks */
     val aggRatings = new AggRatings
-    aggRatings.generateDF(ss)
+    aggRatings.generateDF
 
 
     /* Close context */

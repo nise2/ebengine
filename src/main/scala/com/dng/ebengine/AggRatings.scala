@@ -5,22 +5,18 @@ import org.apache.spark.sql.functions.max
 import org.apache.spark.sql.functions.{col, udf}
 import org.apache.spark.sql.functions._
 
-
-class AggRatings {
+class AggRatings extends Serializable {
 
   var maxTimestamp: Long = 0L
   val lookupItem: LookupItem = new LookupItem()
   val lookupUser: LookupUser = new LookupUser()
 
 
-  def generateDF(ss: SparkSession): DataFrame = {
-
+  def generateDF(implicit ss: SparkSession): DataFrame = {
 
     val inputDF = Util.getInputDF(ss, EbengineConf.INPUT_TEST_FILE_100_PATH)
 
     maxTimestamp = getMaxTimestamp(inputDF)
-
-    println("maxTimestamp: " + maxTimestamp)
 
     val userDF = lookupUser.generateDF(inputDF)
     val itemDF = lookupItem.generateDF(inputDF)
@@ -31,7 +27,18 @@ class AggRatings {
     val userTable = userDF.as("userTable")
     val itemTable = itemDF.as("itemTable")
 
-    //println(inputDF.count()) //100
+    //println("Before filter" + inputDF.count()) 11922520
+
+    // 1. val timestampMsTable: Convert every values to ms
+
+    // 2. a.GroupBy couple user & item
+    // 2. b.Then aggregate with sum(rating)
+    // Both a. & b. should output the same count dataframe value
+
+    // 2. c. Should output the same count value as 2. a & 2. b
+
+    // 3. a. Display only ratingSum >= 0.01
+    // 3. b. The difference should output the same result
 
     val mappedDF = inputTable
         .join(userTable, col("inputTable.userId") === col("userTable.userId"))
@@ -39,36 +46,47 @@ class AggRatings {
         .select("userIdAsInteger", "itemIdAsInteger", "rating", "timestamp")
 
     val mappedTable = mappedDF.as("mappedTable")
-    //println(newDF.count()) // 100
 
-    ss.sqlContext.udf.register("getRatingPenaltyUDF")
+    println("mappedTable:")
+    mappedTable.show(200)
 
-    val ratedDF = mappedDF
-      .withColumn("penalty", callUDF(getRatingPenalty("mappedTable.timestamp", "mappedTable.rating")))
+    def ratedDF = mappedDF
+        .withColumn("rating",
+          getRatingPenalty(col("timestamp"), col("rating"))
+        )
 
-    ratedDF.show(100)
-    ratedDF
+    println("ratedDF :")
+    println(ratedDF.count())
+    ratedDF.show(101) // count row xag_101.csv -> Output 101
+    def sumRatedDF = ratedDF
+        .groupBy(col("userIdAsInteger"), col("itemIdAsInteger"))
+        .agg(sum("rating"))
+        .withColumnRenamed("sum(rating)", "ratingSum")
+        //.filter($"ratingSum" > 0.01)
+
+    println("sumRatedDF:")
+    println(sumRatedDF.count())
+    sumRatedDF.show(100)
+
+    sumRatedDF
   }
 
-  def getRatingPenalty(timestamp: Long, rating: Float): Float = {
-    val diffTimestamp = maxTimestamp - timestamp
-    val nbDays = getNbDaysfromTimestamp(diffTimestamp)
+  val getRatingPenalty = udf((timestamp: Long, rating: Float) =>  {
+    val diffTimestamp: Long = maxTimestamp - timestamp
+    val nbDays: Long = getNbDaysfromTimestamp(diffTimestamp)
 
     rating match {
-      case x if x > 1 => applyTimestampPenalty(rating)
+      case x if x > 1 => applyTimestampPenalty(rating, nbDays)
       case _ => rating
     }
-    println("rating: " + rating)
-    rating
-  }
+  })
 
-  def applyTimestampPenalty(rating: Float): Float = {
-    rating * EbengineConf.PENALTY_FACTOR
+  def applyTimestampPenalty(rating: Float, nbDays: Long): Float = {
+    rating * (EbengineConf.PENALTY_FACTOR * nbDays)
   }
 
   def getNbDaysfromTimestamp(timestamp: Long): Long = {
     val res = timestamp / EbengineConf.MS_TO_DAY
-    println("Number of days: " + res)
     res
   }
 
