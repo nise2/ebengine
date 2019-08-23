@@ -3,6 +3,7 @@ package com.dng.ebengine
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object Util {
+
   def writeIntoFile(df: DataFrame, filePath: String, coalesce: Integer = 1): Unit = {
     df.coalesce(coalesce)
       .write
@@ -20,7 +21,7 @@ object Util {
       .load(inputPath)
   }
 
-  def getInputDF(ss: SparkSession, filePath: String)  : DataFrame   = {
+  def getInputDF(ss: SparkSession, filePath: String)  : DataFrame = {
     ss.read
       .format(EbengineConf.INPUT_FORMAT)
       .load(filePath)
@@ -29,4 +30,5 @@ object Util {
         EbengineConf.COL_RATING,
         EbengineConf.COL_TIMESTAMP)
   }
+
 }

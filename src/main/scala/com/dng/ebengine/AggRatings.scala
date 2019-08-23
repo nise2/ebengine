@@ -1,16 +1,17 @@
 package com.dng.ebengine
 
-import org.apache.spark.sql.{DataFrame, SQLContext, SparkSession}
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.functions.max
 import org.apache.spark.sql.functions.{col, udf}
 import org.apache.spark.sql.functions._
+
+import scala.math.BigDecimal.RoundingMode
 
 class AggRatings extends Serializable {
 
   var maxTimestamp: Long = 0L
   val lookupItem: LookupItem = new LookupItem()
   val lookupUser: LookupUser = new LookupUser()
-
 
   def generateDF(implicit ss: SparkSession): DataFrame = {
 
@@ -47,47 +48,47 @@ class AggRatings extends Serializable {
 
     val mappedTable = mappedDF.as("mappedTable")
 
-    println("mappedTable:")
     mappedTable.show(200)
 
     def ratedDF = mappedDF
-        .withColumn("rating",
+          .withColumn("rating",
           getRatingPenalty(col("timestamp"), col("rating"))
-        )
+          )
 
-    println("ratedDF :")
-    println(ratedDF.count())
-    ratedDF.show(101) // count row xag_101.csv -> Output 101
     def sumRatedDF = ratedDF
         .groupBy(col("userIdAsInteger"), col("itemIdAsInteger"))
         .agg(sum("rating"))
         .withColumnRenamed("sum(rating)", "ratingSum")
-        //.filter($"ratingSum" > 0.01)
-
-    println("sumRatedDF:")
-    println(sumRatedDF.count())
-    sumRatedDF.show(100)
+        .withColumn("ratingSum", formatFloat(col("ratingSum")))
+        .filter($"ratingSum" > 0.01)
 
     sumRatedDF
   }
+
+  val formatFloat = udf((value: Float) => {
+    val bd = BigDecimal(value)
+    val formatted = bd.setScale(2, RoundingMode.HALF_EVEN)
+    formatted.toFloat
+  })
 
   val getRatingPenalty = udf((timestamp: Long, rating: Float) =>  {
     val diffTimestamp: Long = maxTimestamp - timestamp
     val nbDays: Long = getNbDaysfromTimestamp(diffTimestamp)
 
-    rating match {
+    nbDays match {
       case x if x > 1 => applyTimestampPenalty(rating, nbDays)
       case _ => rating
     }
   })
 
   def applyTimestampPenalty(rating: Float, nbDays: Long): Float = {
-    rating * (EbengineConf.PENALTY_FACTOR * nbDays)
+    val penaltyFactor = Math.pow(EbengineConf.PENALTY_FACTOR, nbDays)
+    val res = rating * penaltyFactor
+    res.toFloat
   }
 
   def getNbDaysfromTimestamp(timestamp: Long): Long = {
-    val res = timestamp / EbengineConf.MS_TO_DAY
-    res
+    timestamp / EbengineConf.MS_TO_DAY
   }
 
   def getMaxTimestamp(df: DataFrame): Long = {
