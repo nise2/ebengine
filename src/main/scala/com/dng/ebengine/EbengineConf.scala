@@ -14,7 +14,7 @@ case object EbengineConf {
 
   // Math
   val MS_TO_DAY                     : Long    = 86400000L
-  val PENALTY_FACTOR                : Float   = 0f
+  val PENALTY_FACTOR                : Float   = 0.95f
 
   // Column names
   val COL_USER_ID                   : String  = "userId"
@@ -28,7 +28,7 @@ case object EbengineConf {
   val RESOURCE_DIR                  : String  = "src/main/resources/input/"
   val INPUT_FORMAT                  : String  = "csv"
   // Input: Files
-  val INPUT_TEST_FILE_100           : String  = "xag_101.csv"
+  val INPUT_TEST_FILE_100           : String  = "xag.csv"
 
   // Output: Conf
   val OUTPUT_DIRECTORY              : String  = "src/test/resources/output/"
