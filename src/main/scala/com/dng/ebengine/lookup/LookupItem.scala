@@ -1,11 +1,13 @@
-package com.dng.ebengine
+package com.dng.ebengine.lookup
+
+import com.dng.ebengine.EbengineConf
 import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.{DataFrame, functions}
 import org.apache.spark.sql.functions.monotonically_increasing_id
+import org.apache.spark.sql.{DataFrame, SparkSession, functions}
 
 class LookupItem extends ALookup {
 
-  def generateDF(df: DataFrame): DataFrame = {
+  def generateDF(df: DataFrame)(implicit ss: SparkSession): DataFrame = {
 
     val newDF = df.select(EbengineConf.COL_ITEM_ID)
       .distinct()
@@ -18,10 +20,4 @@ class LookupItem extends ALookup {
 
     newDF.withColumn(EbengineConf.COL_ITEM_ID_AS_INTEGER, idRows)
   }
-
-  def writeDFToFile(df: DataFrame, outputPath: String): Unit = {
-    val outputDF = generateDF(df)
-    Util.writeIntoFile(outputDF, outputPath)
-  }
-
 }

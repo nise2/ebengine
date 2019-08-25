@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.scalatest.{BeforeAndAfterAll, FunSpec, PrivateMethodTester}
 
-trait UnitTestContext extends FunSpec with BeforeAndAfterAll with PrivateMethodTester {
+trait ContextUtils extends FunSpec with BeforeAndAfterAll with PrivateMethodTester {
   var ss              : SparkSession  = _
   var sc              : SparkContext  = _
   var sqlContext      : SQLContext    = _
