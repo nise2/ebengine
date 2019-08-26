@@ -22,7 +22,7 @@ Finally, this project also contains some *unit and integrations tests*.
 |  Tool | Version  |
 |---|---|
 |  Spark |  2.4.3 |
-|  Scala |  2.12  |
+|  Scala |  2.11 |
 |  ScalaTest |  3.0.8  |
 |  Maven |  3.4.6     |
 
@@ -30,30 +30,41 @@ For more details, you can take a look to the properties section of the pom.xml :
 ```
 <properties>
 	...
-        <commons.collections.version>3.2.2</commons.collections.version>
-        <scala.version>2.12</scala.version>
-        <scalatest.version>3.0.8</scalatest.version>
-
-        <spark.core.version>2.4.3</spark.core.version>
-
-        <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
-        <maven.surefire.plugin.version>3.0.0-M3</maven.surefire.plugin.version>
-        <scalatest.maven.plugin.version>2.0.0</scalatest.maven.plugin.version>
-        <scala.compat.version>2.12.</scala.compat.version>
-        <scala.maven.plugin.version>3.4.6</scala.maven.plugin.version>
-    </properties>
+	<commons.collections.version>3.2.2</commons.collections.version>
+	<scala.version>2.11</scala.version>
+	<scalatest.version>3.0.8</scalatest.version>
+	<com.typesafe.version>1.2.1</com.typesafe.version>
+	
+	<spark.core.version>2.4.3</spark.core.version>
+	
+	<maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
+	<maven.surefire.plugin.version>3.0.0-M3</maven.surefire.plugin.version>
+	<scalatest.maven.plugin.version>2.0.0</scalatest.maven.plugin.version>
+	<scala.compat.version>2.11.</scala.compat.version>
+	<scala.maven.plugin.version>3.4.6</scala.maven.plugin.version>
+</properties>
 ```
 ### Run the job
-Make sure you have [Spark](https://spark.apache.org/docs/latest/index.html) installed, then you can use [*spark-submit*](https://spark.apache.org/docs/latest/submitting-applications.html) to launch the job.<br />
-
-Feel free to accomodate the resource configuration with your usage.
+First of all, make sure you have [Spark](https://spark.apache.org/docs/latest/index.html) installed.<br />
+Then, go in the project root directory
 ```
-./spark-submit --class com.dng.ebengine.Main --master local ebengine.jar 
+$ cd ebengine
+```
+
+You can set spark properties in application.conf file (in the root directory), or leave it by default (local mode).<br />
+Then you can use [*spark-submit*](https://spark.apache.org/docs/latest/submitting-applications.html) to launch the job.<br />
+
+Feel free to accomodate the configuration with your needs:<br />
+```
+$>  ~/Downloads/spark-2.4.3-bin-hadoop2.7/bin/spark-submit \
+--class com.dng.ebengine.Main \
+--files application.conf \ # Optional because selected by default by Spark
+target/ebengine-1.0-SNAPSHOT-with-dependencies.jar
 ```
 
 ### Documentation
 There is a documentation of the project generated with ScalaDoc.<br />
-You can generate it with the command *mvn-site*.
+If you have [Maven](https://maven.apache.org/plugins/maven-site-plugin/) installed, you can generate it with the command *mvn site*.
 
 ### Tests
 Here is the list of the tested functionalities :
