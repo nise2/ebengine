@@ -11,15 +11,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <commons.collections.version>3.2.2</commons.collections.version>
-        <scala.version>2.12</scala.version>
+        <scala.version>2.11</scala.version>
         <scalatest.version>3.0.8</scalatest.version>
+        <com.typesafe.version>1.2.1</com.typesafe.version>
 
         <spark.core.version>2.4.3</spark.core.version>
 
         <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
         <maven.surefire.plugin.version>3.0.0-M3</maven.surefire.plugin.version>
         <scalatest.maven.plugin.version>2.0.0</scalatest.maven.plugin.version>
-        <scala.compat.version>2.12.</scala.compat.version>
+        <scala.compat.version>2.11.</scala.compat.version>
         <scala.maven.plugin.version>3.4.6</scala.maven.plugin.version>
 
     </properties>
@@ -57,6 +58,14 @@
             <artifactId>spark-sql_${scala.version}</artifactId>
             <version>${spark.core.version}</version>
         </dependency>
+
+        <!-- Typesafe -->
+        <dependency>
+            <groupId>com.typesafe</groupId>
+            <artifactId>config</artifactId>
+            <version>${com.typesafe.version}</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -132,6 +141,11 @@
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
                                 </filter>
                             </filters>
                             <relocations>
