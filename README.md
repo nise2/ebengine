@@ -16,7 +16,7 @@ It allows you to generate DataFrames according to certain characteristics, and s
 
 Also, you might be interested to generate the *Scaladoc* to have more information about the job in general (funcions, parameters...).
 
-Finally, this project also contains some *unit and integrations tests*.
+Finally, this project also contains some *unit and integration tests*.
 
 ### Tools Versions
 |  Tool | Version  |
@@ -54,7 +54,7 @@ $ cd ebengine
 You can set spark properties in application.conf file (in the root directory), or leave it by default (local mode).<br />
 Then you can use [*spark-submit*](https://spark.apache.org/docs/latest/submitting-applications.html) to launch the job.<br />
 
-Feel free to accomodate the configuration with your needs:<br />
+Feel free to accomodate the configurations according to your needs:<br />
 ```
 $>  ~/Downloads/spark-2.4.3-bin-hadoop2.7/bin/spark-submit \
 --class com.dng.ebengine.Main \
@@ -91,8 +91,8 @@ it("should return the rating with penalty given timestampMax - timestamp > 0")
 Below are listed the main directories and files.
 - ./ (root directory)
 ```
+- application.conf # Spark configuration
 - pom.xml
-- ebengine.jar
 ```
 
 - In src/main
@@ -123,8 +123,6 @@ To have a more general overview of the project, you can eventually take a look h
 ```
 dng@local:~/Projects/ebengine$ tree
 .
-├── ebengine-1.0-SNAPSHOT-with-dependencies.jar/
-├── ebengine.jar/
 ├── pom.xml
 ├── scaladoc/
 ├── src
