@@ -4,7 +4,7 @@
 
 1. [Introduction](#introduction)
 2. [Tools Versions](#tools-versions)
-3. [Run the job](#run-job)
+3. [Run the job](#run-the-job)
 4. [Documentation](#documentation)
 5. [Tests](#tests)
 6. [Structure](#structure)
@@ -100,18 +100,18 @@ Below are listed the main directories and files.
 - resources/input/ # Contains the input files to the program
 - resources/output/ # Will be created when creating files from the Main
 - com.dng.ebengine/
-   -- lookup/<br/>
+   -- lookup/
        -- AggRatings
        -- LookupItem
        -- LookupUser
-   -- utils/<br />
+   -- utils/
       -- EbengineConf # Contains the project constants
 ```
 - In src/test
 ```
 - resources/output/ # Will be created when creating files from the Tests
 - com.dng.ebengine/
-   -- lookup/<br/> ## Tests of the matching package
+   -- lookup/ ## Tests of the matching package
        -- AggRatingsTest
        -- LookupItemTest
        -- LookupUserTest
