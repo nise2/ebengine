@@ -2,8 +2,9 @@ package com.dng.ebengine
 
 import com.dng.ebengine.lookup.AggRatings
 import com.dng.ebengine.utils.DataFrameUtils
-import org.apache.spark.{SparkConf}
-import org.apache.spark.sql.{SparkSession}
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.SparkSession
+import com.typesafe.config.{ConfigFactory}
 
 /**
   * Entry object of the job.
@@ -37,24 +38,24 @@ object Main {
     * @return SparkSession
     */
   private def initContext: SparkSession = {
+
     println(EbengineConf.START_JOB_MSG)
+
     val appName = EbengineConf.SPARK_APP
-    val master = EbengineConf.SPARK_MASTER
+    val master  = ConfigFactory.load.getString(EbengineConf.SPARK_PARAM_MASTER)
+    val deployMode = ConfigFactory.load.getString(EbengineConf.SPARK_PARAM_DEPLOY_MODE)
 
     val conf: SparkConf = new SparkConf()
       .setMaster(master)
       .setAppName(appName)
 
-    implicit val ss = SparkSession.builder().config(conf).getOrCreate()
-
-    val sc = ss.sparkContext
-    sc.setLogLevel(EbengineConf.SPARK_LOG_LEVEL)
-
+    val sc = new SparkContext(conf)
+    val ss = SparkSession.builder().config(conf).getOrCreate()
     val sqlContext = ss.sqlContext
 
-    println(EbengineConf.LOG_APP_NAME + " : " + sc.appName)
-    println(EbengineConf.LOG_MASTER + " : " + sc.master)
-    println(EbengineConf.LOG_DEPLOY_MODE + " : " + sc.deployMode)
+    println(EbengineConf.LOG_APP_NAME + " : " + appName)
+    println(EbengineConf.LOG_MASTER + " : " + master)
+    println(EbengineConf.LOG_DEPLOY_MODE + " : " + deployMode)
 
     return ss
   }

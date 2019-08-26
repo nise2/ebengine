@@ -1,5 +1,9 @@
 package com.dng.ebengine
 
+
+import java.io.File
+
+import org.apache.commons.io.FileUtils
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.scalatest.{BeforeAndAfterAll, FunSpec, PrivateMethodTester}
@@ -33,6 +37,7 @@ trait ContextUtils extends FunSpec with BeforeAndAfterAll with PrivateMethodTest
 
   override def afterAll: Unit = {
     sc.stop
+    FileUtils.deleteDirectory(new File(EbengineConfTestUtils.TEST_OUTPUT_DIR))
     super.afterAll
   }
 }

@@ -11,6 +11,9 @@ case object EbengineConf {
   val SPARK_APP                     : String  = "Ebengine"
   val SPARK_MASTER                  : String  = "local[*]"
   val SPARK_LOG_LEVEL               : String  = "ERROR"
+  val SPARK_PARAM_APP               : String  = "spark.app.name"
+  val SPARK_PARAM_MASTER            : String  = "spark.master"
+  val SPARK_PARAM_DEPLOY_MODE       : String  = "spark.submit.deployMode"
 
   /**
     * Log
