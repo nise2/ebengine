@@ -5,8 +5,17 @@ import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions.monotonically_increasing_id
 import org.apache.spark.sql.{DataFrame, SparkSession, functions}
 
+/**
+  * Manage LookupItem.
+  */
 class LookupItem extends ALookup {
 
+  /**
+    * Generate LookupItem DataFrame with the following columns: itemId and itemIdAsInteger.
+    * @param df Loaded DataFrame input
+    * @param ss Spark Session
+    * @return LookupItem DataFrame
+    */
   def generateDF(df: DataFrame)(implicit ss: SparkSession): DataFrame = {
 
     val newDF = df.select(EbengineConf.COL_ITEM_ID)

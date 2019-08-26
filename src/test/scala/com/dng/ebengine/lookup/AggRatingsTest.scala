@@ -46,29 +46,29 @@ class AggRatingsTestUtils  extends ContextUtils with BeforeAndAfterAll {
   it ("should return the penalty factor given a rating and its gap timestamp with max") {
     // GIVEN
     val method = PrivateMethod[Double](EbengineConfTestUtils.getPenaltyFactorFun)
-    val nbDay = EbengineConfTestUtils.PARAM_NB_DAY
+    val nbDay = EbengineConfTestUtils.PARAM_NB_DAY_SEVEN
 
     // WHEN
     val result: Double = scope invokePrivate method(nbDay)
 
     // THEN
-    assert(result == EbengineConfTestUtils.RES_PENALTY_FACTOR)
+    assert(result == EbengineConfTestUtils.RES_PENALTY_FACTOR_SEVEN_DAYS)
   }
 
   it ("should return the rating penalty given a rating and a number of days") {
     // GIVEN
     val method = PrivateMethod[Double](EbengineConfTestUtils.getRatingPenaltyFun)
     val rating = EbengineConfTestUtils.PARAM_RATING
-    val nbDays = EbengineConfTestUtils.PARAM_NB_DAY
+    val nbDays = EbengineConfTestUtils.PARAM_NB_DAY_SEVEN
 
     // WHEN
     val result = scope invokePrivate method(rating, nbDays)
 
     // THEN
-    assert(result == EbengineConfTestUtils.RES_RATING_PENALTY)
+    assert(result == EbengineConfTestUtils.RES_RATING_BY_PENALTY_FACTOR_SEVEN_DAYS)
   }
 
-  it("should return the rating without penalty given timestampMax - timestamp <= 1") {
+  it("should return the rating without penalty given timestampMax - timestamp <= 0") {
     // GIVEN
     val method                = PrivateMethod[Double](EbengineConfTestUtils.applyRatingPenaltyFun)
     val maxTs       : Long    = EbengineConfTestUtils.PARAM_MAX_TS
@@ -82,7 +82,7 @@ class AggRatingsTestUtils  extends ContextUtils with BeforeAndAfterAll {
     assert(result == EbengineConfTestUtils.PARAM_RATING)
   }
 
-  it("should return the rating with penalty given timestampMax - timestamp > 1") {
+  it("should return the rating with penalty given timestampMax - timestamp > 0") {
     // GIVEN
     val method                = PrivateMethod[Double](EbengineConfTestUtils.applyRatingPenaltyFun)
     val maxTs     : Long      = EbengineConfTestUtils.PARAM_MAX_TS

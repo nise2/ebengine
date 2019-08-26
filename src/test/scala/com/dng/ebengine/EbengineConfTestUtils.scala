@@ -38,16 +38,16 @@ object EbengineConfTestUtils {
   val RES_NB_DAY_MS_FROM_TS         : Long    = 17098L
 
   val getPenaltyFactorFun           : Symbol  = Symbol("getPenaltyFactor")
-  val PARAM_NB_DAY                  : Integer = 7
-  val RES_PENALTY_FACTOR            : Double  = 0.6983372960937497
+  val PARAM_NB_DAY_SEVEN            : Integer = 7
+  val RES_PENALTY_FACTOR_SEVEN_DAYS : Double  = 0.6983372960937497
+  val RES_RATING_BY_PENALTY_FACTOR_SEVEN_DAYS  : Double  = 34.916864804687485
 
   val getRatingPenaltyFun           : Symbol  = Symbol("getRatingPenalty")
   val PARAM_MAX_TS                  : Long    = 1477353599713L
   val PARAM_TS_NO_PENALTY           : Long    = 1477353599713L
-  val PARAM_TS_PENALTY              : Long    = 1476686557818L
-  val RES_RATING_PENALTY_FLOAT      : Float   = 34.9168648046874850f
+  val PARAM_TS_PENALTY              : Long    = PARAM_TS_NO_PENALTY - EbengineConf.MS_TO_DAY
 
   val applyRatingPenaltyFun         : Symbol  = Symbol("applyRatingPenalty")
   val PARAM_RATING                  : Double  = 50.0
-  val RES_RATING_PENALTY            : Double  = 34.9168648046874850
+  val RES_RATING_PENALTY            : Double  = 47.50
 }
