@@ -65,6 +65,7 @@ target/ebengine-1.0-SNAPSHOT-with-dependencies.jar
 ### Documentation
 There is a documentation of the project generated with ScalaDoc.<br />
 If you have [Maven](https://maven.apache.org/plugins/maven-site-plugin/) installed, you can generate it with the command *mvn site*.
+![alt text](./src/main/resources/img/Ebengine_documentation.png)
 
 ### Tests
 Here is the list of the tested functionalities :
