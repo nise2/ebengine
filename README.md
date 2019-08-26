@@ -101,9 +101,9 @@ Below are listed the main directories and files.
 - resources/output/ # Will be created when creating files from the Main
 - com.dng.ebengine/
    -- lookup/<br/>
-       -- AggRatings<br />
-       -- LookupItem<br />
-       -- LookupUser<br />
+       -- AggRatings
+       -- LookupItem
+       -- LookupUser
    -- utils/<br />
       -- EbengineConf # Contains the project constants
 ```
@@ -112,9 +112,9 @@ Below are listed the main directories and files.
 - resources/output/ # Will be created when creating files from the Tests
 - com.dng.ebengine/
    -- lookup/<br/> ## Tests of the matching package
-       -- AggRatingsTest<br />
-       -- LookupItemTest<br />
-       -- LookupUserTest<br />
+       -- AggRatingsTest
+       -- LookupItemTest
+       -- LookupUserTest
    -- EbengineConf # Contains the project constants
    -- EbengineConfTestUtils # Contains the tests constants
 ```
