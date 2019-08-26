@@ -123,6 +123,7 @@ To have a more general overview of the project, you can eventually take a look h
 ```
 dng@local:~/Projects/ebengine$ tree
 .
+├── application.conf
 ├── pom.xml
 ├── scaladoc/
 ├── src
