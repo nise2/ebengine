@@ -11,7 +11,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <commons.collections.version>3.2.2</commons.collections.version>
-        <scala.version>2.12</scala.version>
+        <scala.version>2.11</scala.version>
         <scalatest.version>3.0.8</scalatest.version>
 
         <spark.core.version>2.4.3</spark.core.version>
@@ -19,7 +19,7 @@
         <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
         <maven.surefire.plugin.version>3.0.0-M3</maven.surefire.plugin.version>
         <scalatest.maven.plugin.version>2.0.0</scalatest.maven.plugin.version>
-        <scala.compat.version>2.12.</scala.compat.version>
+        <scala.compat.version>2.11.</scala.compat.version>
         <scala.maven.plugin.version>3.4.6</scala.maven.plugin.version>
 
     </properties>
@@ -132,6 +132,11 @@
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
                                 </filter>
                             </filters>
                             <relocations>
