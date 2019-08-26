@@ -7,7 +7,7 @@ import com.dng.ebengine.{ContextUtils, EbengineConf, EbengineConfTestUtils}
 import org.apache.spark.sql.DataFrame
 import org.scalatest.BeforeAndAfterAll
 
-class LookupItemTestUtils extends ContextUtils with BeforeAndAfterAll {
+class LookupItemTest extends ContextUtils with BeforeAndAfterAll {
 
   lazy val scope: LookupItem   = new LookupItem
   lazy val inputDF    : DataFrame   = getInputDF(EbengineConf.INPUT_TEST_FILE_100_PATH)

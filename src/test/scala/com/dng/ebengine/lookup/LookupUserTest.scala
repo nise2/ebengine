@@ -7,7 +7,7 @@ import com.dng.ebengine.{ContextUtils, EbengineConf, EbengineConfTestUtils}
 import org.apache.spark.sql.DataFrame
 import org.scalatest.BeforeAndAfterAll
 
-class LookupUserTestUtils extends ContextUtils with BeforeAndAfterAll {
+class LookupUserTest extends ContextUtils with BeforeAndAfterAll {
 
   lazy val scope    : LookupUser  = new LookupUser
   lazy val inputDF  : DataFrame   = getInputDF(EbengineConf.INPUT_TEST_FILE_100_PATH)
@@ -22,7 +22,7 @@ class LookupUserTestUtils extends ContextUtils with BeforeAndAfterAll {
             EbengineConf.COL_TIMESTAMP)
   }
 
-  it("should output the expected file content") {
+  it("should generate the expected file content") {
     // GIVEN
     val result = scope.generateDF(inputDF)(ss)
 
@@ -33,7 +33,7 @@ class LookupUserTestUtils extends ContextUtils with BeforeAndAfterAll {
     assert(result.except(expectedResult).toDF().count == 0)
   }
 
-  it("should output expected file") {
+  it("should create a file in the expected path") {
     // WHEN
     val result = scope.writeDFToFile(inputDF,
       EbengineConfTestUtils.TEST_OUTPUT_LOOKUP_USER_FILE_PATH)(ss)

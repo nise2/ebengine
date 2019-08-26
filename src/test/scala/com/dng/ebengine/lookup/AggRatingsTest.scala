@@ -4,7 +4,7 @@ import com.dng.ebengine.{ContextUtils, EbengineConf, EbengineConfTestUtils}
 import org.apache.spark.sql.DataFrame
 import org.scalatest.BeforeAndAfterAll
 
-class AggRatingsTestUtils  extends ContextUtils with BeforeAndAfterAll {
+class AggRatingsTest  extends ContextUtils with BeforeAndAfterAll {
 
   lazy val scope      : AggRatings  = new AggRatings
   lazy val inputDF    : DataFrame   = getInputDF(EbengineConf.INPUT_TEST_FILE_102_PATH)
@@ -31,7 +31,7 @@ class AggRatingsTestUtils  extends ContextUtils with BeforeAndAfterAll {
     assert(result == EbengineConfTestUtils.EXPECTED_MAX_TIMESTAMP_FULL)
   }
 
-  it("should return the number of days in ms given a timestamp ") {
+  it("should return the number of days in ms given a timestamp") {
     // GIVEN
     val method = PrivateMethod[Integer](EbengineConfTestUtils.getNbDayMsFromTimestamp)
     val timestamp = EbengineConfTestUtils.PARAM_TIMESTAMP
