@@ -3,11 +3,10 @@
 ## Table of contents
 
 1. [Introduction](#introduction)
-2. [Tools Versions](#tools-versions)
+2. [Tools versions](#tools-versions)
 3. [Run the job](#run-the-job)
 4. [Documentation](#documentation)
-5. [Tests](#tests)
-6. [Structure](#structure)
+5. [Structure](#structure)
 
 ### Introduction
 E.B. Engine is a job built on top of *Spark* and *Scala*.
@@ -18,7 +17,7 @@ Also, you might be interested to generate the *Scaladoc* to have more informatio
 
 Finally, this project also contains some *unit and integration tests*.
 
-### Tools Versions
+### Tools version
 |  Tool | Version  |
 |---|---|
 |  Spark |  2.4.3 |
@@ -67,26 +66,6 @@ There is a documentation of the project generated with ScalaDoc.<br />
 If you have [Maven](https://maven.apache.org/plugins/maven-site-plugin/) installed, you can generate it with the command *mvn site*.
 ![alt text](./src/main/resources/img/Ebengine_documentation.png)
 
-### Tests
-Here is the list of the tested functionalities :
-```
-// LookupItemTest
-it("should generate the expected file content")
-it("should create a file in the expected path")
-
-// LookupUserTest
-it("should generate the expected file content")
-it("should create a file in the expected path")
-
-// AggRatingsTest
-it("should return the max timestamp value: ..." + " given ...")
-it("should return the number of days in ms given a timestamp")
-it("should return the penalty factor given a rating and its gap timestamp with max")
-it("should return the rating penalty given a rating and a number of days")
-it("should return the rating without penalty given timestampMax - timestamp <= 0")
-it("should return the rating with penalty given timestampMax - timestamp > 0")
-```
-
 ### Structure
 Below are listed the main directories and files.
 - ./ (root directory)
@@ -118,51 +97,4 @@ Below are listed the main directories and files.
    -- EbengineConf # Contains the project constants
    -- EbengineConfTestUtils # Contains the tests constants
 ```
-
-To have a more general overview of the project, you can eventually take a look here:
-```
-dng@local:~/Projects/ebengine$ tree
-.
-├── application.conf
-├── pom.xml
-├── scaladoc/
-├── src
-│   ├── main 
-│   │   ├── resources
-│   │   │   └── input
-│   │   │       ├── expected_lookup_product_100.csv
-│   │   │       ├── expected_lookup_user_100.csv
-│   │   │       ├── xag_100.csv
-│   │   │       ├── xag_101.csv
-│   │   │       └── xag_102.csv
-│   │   └── scala
-│   │       └── com
-│   │           └── dng
-│   │               └── ebengine
-│   │                   ├── EbengineConf.scala
-│   │                   ├── Main.scala
-│   │                   ├── lookup 
-│   │                   │   ├── ALookup.scala
-│   │                   │   ├── AggRatings.scala
-│   │                   │   ├── LookupItem.scala
-│   │                   │   └── LookupUser.scala
-│   │                   └── utils
-│   │                       ├── DataFrameUtils.scala
-│   │                       └── FormatterUtils.scala
-│   └── test
-│       ├── resources
-│       └── scala
-│           └── com
-│               └── dng
-│                   └── ebengine
-│                       ├── ContextUtils.scala
-│                       ├── EbengineConfTestUtils.scala
-│                       └── lookup
-│                           ├── AggRatingsTest.scala
-│                           ├── LookupItemTest.scala
-│                           └── LookupUserTest.scala
-└── target
- ```
- 
-
 
