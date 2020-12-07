@@ -29,16 +29,9 @@ class AggRatings extends ALookup {
     lookupItem.writeDFToFile(itemDF, EbengineConf.JOB_OUTPUT_LOOKUP_ITEM_PATH)
 
     val fullInputDF = joinAllDataFrames(inputDF, userDF, itemDF)
-    //fullInputDF.show()
-
     val ratedPenaltyDF = getDFWithRatingPenalty(fullInputDF)
-    //ratedPenaltyDF.show()
-
     val sumRatedDF = getDFWithRatingPenaltySum(ratedPenaltyDF)
-    //sumRatedDF.show()
-
     val aggRatingsDF = filterSumRatedDF(sumRatedDF)
-    //aggRatingsDF.show()
 
     aggRatingsDF
   }
